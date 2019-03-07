@@ -1,0 +1,8 @@
+<mat-list-item 
+[routerLink]="[id]"
+routerLinkActive="active"
+(click)="onCategoryClicked()">
+  <mat-icon mat-list-icon>category</mat-icon>
+  <h4 mat-line>{{category.categoryName | titlecase }}</h4>
+  <!-- <p mat-line> {{folder.updated | date}} </p> -->
+</mat-list-item>

@@ -1,0 +1,37 @@
+<div fxLayout="column" class="bottom-sheet-style">
+  <div fxLayoutAlign="center">
+    <h1>{{ this.data.editMode ? 'Edit' : 'Add' }} product</h1>
+  </div>
+  <form fxLayout="column" (ngSubmit)="onSubmit()" [formGroup]="addProductForm">
+    <mat-form-field>
+      <input matInput placeholder="Category Code" formControlName="productCode">
+      <mat-error *ngIf="addProductForm.get('productCode').hasError('required')">The Product code is required</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Category Name" formControlName="ProductName">
+      <mat-error *ngIf="addProductForm.get('ProductName').hasError('required')">The product name is required</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="number" matInput placeholder="Category Price" formControlName="ProductPrice">
+      <mat-error *ngIf="addProductForm.get('ProductPrice').hasError('required')">The product price is required</mat-error>
+    </mat-form-field>
+    <div fxLayoutAlign="center" fxLayoutGap="1%">
+        <button mat-raised-button color="accent" type="submit" [disabled]="!addProductForm.valid">{{ this.data.editMode ? 'Update' : 'Save' }}</button>
+        <button mat-raised-button color="accent" type="button" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+  <!-- <div fxLayout fxLayoutAlign="center">
+    <div fxLayout="column">
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <mat-form-field fxLayout fxLayoutAlign="center">
+          <input matInput placeholder="Category Name" name="category" ngModel required #categoryName="ngModel">
+          <mat-error *ngIf="categoryName.hasError('required')">The Category name is required</mat-error>
+        </mat-form-field>
+        <div fxLayout fxLayoutAlign="space-around" class="margin-style">
+          <button mat-raised-button color="accent" type="submit" [disabled]="!f.valid">Save</button>
+          <button mat-raised-button color="accent" type="button" (click)="onCancel()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div> -->
+</div>

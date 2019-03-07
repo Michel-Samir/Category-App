@@ -1,0 +1,46 @@
+<div fxLayout="column" fxFlex="90%" fxFlexOffset="5%" class="category-detail-style">
+  <div fxLayoutAlign="center">
+    <h1>{{ category.nestedCategories[nestedCategoryId].nestedCategoryName | titlecase }} Products</h1>
+  </div>
+  <div fxLayoutAlign="space-between">
+      <button mat-raised-button color="primary" (click)="onAddProduct()">Add Product</button>
+      <button mat-raised-button color="primary" (click)="onBack()">Back</button>
+  </div>
+  <div fxLayout="column" >
+    <form fxLayout="column" (ngSubmit)="onSubmit()" [formGroup]="deleteProductForm">
+      <mat-form-field>
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+      <mat-table [dataSource]="dataSource" matSort>
+        <!-- <ng-container matColumnDef="delete">
+            <mat-header-cell *matHeaderCellDef><button mat-raised-button color="accent" type="submit"><mat-icon>delete</mat-icon>Delete</button></mat-header-cell>
+            <div formArrayName="checkedProducts">
+              <mat-cell *matCellDef="let i = index"><mat-checkbox class="margin-style" [formControlName]="i"></mat-checkbox></mat-cell>
+            </div>
+        </ng-container> -->
+
+        <ng-container matColumnDef="edit">
+            <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
+            <mat-cell *matCellDef="let i = index"><button mat-icon-button color="accent" (click)="onEditProduct(i)"><mat-icon>edit</mat-icon></button></mat-cell>
+          </ng-container>
+
+        <ng-container matColumnDef="productCode">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Product Code</mat-header-cell>
+          <mat-cell *matCellDef="let product">{{ product.productCode }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="productName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Product Name</mat-header-cell>
+          <mat-cell *matCellDef="let product">{{ product.productName }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="productPrice">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>product Price</mat-header-cell>
+          <mat-cell *matCellDef="let product">{{ product.productPrice | number }}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSize]="5" [pageSizeOptions]="[5,10,20]"></mat-paginator>
+    </form>
+  </div>
+</div>

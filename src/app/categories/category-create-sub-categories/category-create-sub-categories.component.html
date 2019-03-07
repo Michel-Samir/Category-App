@@ -1,0 +1,41 @@
+<div fxLayout="column" fxFlex="90%" fxFlexOffset="5%" class="category-detail-style">
+  <div fxLayoutAlign="center">
+    <h1>Create Sub-categories</h1>
+  </div>
+  <form fxLayout="column" (ngSubmit)="onSubmit()" [formGroup]="addSubCategoryForm">
+    <div fxLayoutAlign="center" fxLayoutGap="1%">
+      <button mat-raised-button color="accent" type="submit" [disabled]="!addSubCategoryForm.valid">Save</button>
+      <button mat-raised-button color="accent" type="button" (click)="onCancel()">Cancel</button>
+    </div>
+    <mat-form-field >
+      <input matInput placeholder="Sub-category Name" formControlName="nestedCategoryName">
+      <mat-error *ngIf="addSubCategoryForm.get('nestedCategoryName').hasError('required')">This field is required</mat-error>
+    </mat-form-field>
+    <div fxLayoutAlign="start" class="margin-style">
+      <button mat-raised-button color="accent" type="button" (click)="addNewProducts()">Add Products</button>
+    </div>
+    <div formArrayName="products">
+      <div 
+      fxLayout fxLayoutAlign="space-between"
+      *ngFor="let productCtrl of addSubCategoryForm.get('products').controls; let i = index"
+      [formGroupName]="i">
+        <mat-form-field>
+          <input matInput placeholder="Product Code" formControlName="productCode">
+          <mat-error *ngIf="addSubCategoryForm.get('products').controls[i].controls['productCode'].hasError('required')">This field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field >
+          <input matInput placeholder="Product Name" formControlName="productName">
+          <mat-error *ngIf="addSubCategoryForm.get('products').controls[i].controls['productName'].hasError('required')">This field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field >
+          <input matInput type="number" placeholder="product Price" formControlName="productPrice">
+          <mat-error *ngIf="addSubCategoryForm.get('products').controls[i].controls['productPrice'].hasError('required')">This field is required</mat-error>
+        </mat-form-field>
+        <button mat-icon-button (click)="onDeleteProduct(i)">
+            <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+  

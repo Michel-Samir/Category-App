@@ -1,0 +1,20 @@
+<div fxLayout.gt-sm class="option-panel-style">
+  <div fxFlex.lt-md="auto" fxFlex.gt-sm="30%" gdGridAlign="center center">
+      <button mat-raised-button color="primary" (click)="openCreateCategoryBottomSheet()">Create Category</button>
+  </div>
+  <div fxFlex.lt-md="auto" fxFlex.gt-sm="70%" gdGridAlign="center center">
+      <mat-form-field fxFill>
+        <input matInput type="text" placeholder="Filter Category by name" [(ngModel)]="filterString">
+        </mat-form-field>
+  </div>
+</div>
+<mat-list>
+    <h3 mat-header>Category List</h3>
+    <div *ngFor="let categoryEl of (categories | filter:filterString:'categoryName'); let i = index" >
+      <app-category-item
+      *ngIf="categoryEl"
+      [category]="categoryEl"
+      [categoryId]="i"
+      (clicked)="categoryClicked()"></app-category-item>
+    </div>
+</mat-list>

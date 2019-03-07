@@ -1,0 +1,29 @@
+<div fxLayout="column" fxFlex="80%" fxFlexOffset="10%" class="category-detail-style">
+  <div fxLayout fxLayoutAlign="space-between center">
+    <h1>{{ category.categoryName | titlecase }} Category</h1>
+    <button mat-raised-button color="primary" (click)="addSubCategories()">Add Sub-category</button>
+  </div>
+  <div fxLayout fxLayoutAlign="center" *ngIf="category.nestedCategories.length === 0">
+    <p>There is no sub Categories in this category</p>
+  </div>
+  <div fxLayout fxLayoutAlign="center" *ngIf="category.nestedCategories.length !== 0">
+    <div fxLayout="column" fxFlex="100%">
+      <p fxLayout fxLayoutAlign="center">{{ category.categoryName | titlecase }} Sub-categories</p>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let subCategory of category.nestedCategories; let i = index">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{subCategory.nestedCategoryName | uppercase }}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{subCategory.products.length}} Products
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-action-row>
+            <button mat-button color="accent" (click)="productPage(i)">Go to products of this category</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</div>
